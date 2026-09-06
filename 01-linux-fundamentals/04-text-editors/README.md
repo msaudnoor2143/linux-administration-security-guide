@@ -1,907 +1,1364 @@
-Lab 04 — Using Text Editors
+# Lab 04 — Text Editors
 
-Learn how to create, open, edit, save, and manage text files using terminal-based text editors in Linux.
+> Learn how to create, edit, save, and manage text files from the Linux command line using terminal-based text editors.
 
-🎯 Objective
+---
+
+## 🎯 Objective
 
 By completing this lab, you will learn how to:
 
-Understand the role of text editors in Linux
-Open and create files using nano
-Edit files using nano
-Save and exit nano
-Understand the basic interface of nano
-Open and edit files using vi
-Understand Normal Mode and Insert Mode
-Enter Insert Mode in vi
-Return to Normal Mode
-Save and exit files using vi
-Understand common vi commands
-Compare nano and vi
-Understand why terminal text editors are important for Linux administration
-📚 Prerequisites
+- Understand text editors in Linux
+- Understand the difference between graphical and terminal editors
+- Use `nano` to edit text files
+- Create and modify configuration-style files
+- Save and exit a text editor
+- Search within a text file
+- Understand basic text-editing shortcuts
+- Verify changes made to files
+- Understand why text editors are important for Linux administration
+
+---
+
+## 📚 Prerequisites
 
 Before starting this lab, you should have:
 
-Access to a Linux system
-A working terminal
-Basic knowledge of Linux commands
-Completion of Lab 01 — Navigating the Linux Filesystem
-Completion of Lab 02 — Working with Directories
-Completion of Lab 03 — Managing Files
+- A working Linux system
+- Access to a terminal
+- Basic Linux command-line knowledge
+- Completion of:
+  - **Lab 01 — Navigating the Linux Filesystem**
+  - **Lab 02 — Working with Directories**
+  - **Lab 03 — Managing Files**
 
-Check whether nano and vi are installed:
+> ⚠️ **Important:** Perform all exercises inside the dedicated lab directory. Do not edit important system configuration files until you understand the consequences of the changes.
 
-command -v nano
-command -v vi
+---
 
-If installed, these commands should return paths such as:
+# 1. Introduction to Text Editors
 
-/usr/bin/nano
-/usr/bin/vi
-1. Introduction to Linux Text Editors
+A text editor is a program used to create and modify text files.
 
-A text editor is a program used to create and modify plain-text files.
+Linux administrators frequently work with text files such as:
 
-Linux relies heavily on text files for system administration.
+- Configuration files
+- Shell scripts
+- Log files
+- Documentation
+- Application settings
+- Automation files
 
-Examples include:
+Many Linux systems provide both graphical and terminal-based text editors.
 
-Configuration files
-Shell scripts
-Service configuration
-Network configuration
-Security configuration
-User configuration
-Application settings
-Documentation
+Common Linux text editors include:
 
-Many Linux servers do not have a graphical desktop environment.
+```text
+nano
+vim
+vi
+emacs
+```
 
-Instead, administrators connect through tools such as SSH and perform their work entirely from the command line.
+In this lab, you will primarily work with **nano** because it is beginner-friendly and available on many Linux distributions.
 
-For this reason, knowing how to use terminal-based text editors is an important Linux administration skill.
+---
 
-Two editors you will learn in this lab are:
+# 2. Create a Lab Workspace
 
-Editor	Description
-nano	Simple and beginner-friendly terminal editor
-vi	Powerful modal editor commonly available on Linux and Unix systems
-2. Create a Lab Workspace
+Create a dedicated directory:
 
-Create a dedicated directory for this lab:
-
+```bash
 mkdir -p ~/linux-lab-04
+```
 
-Move into the directory:
+Move into it:
 
+```bash
 cd ~/linux-lab-04
+```
 
 Verify your location:
 
+```bash
 pwd
+```
 
-You should see a path similar to:
+You should see something similar to:
 
+```text
 /home/your-user/linux-lab-04
+```
 
 List the directory:
 
+```bash
 ls -la
+```
 
-At this point, the directory should be empty or contain only files from previous practice.
+---
 
-3. Understanding nano
+# 3. Check Whether nano Is Installed
 
-nano is a simple terminal-based text editor.
+Run:
 
-It is particularly useful for beginners because its most common keyboard shortcuts are displayed at the bottom of the screen.
+```bash
+nano --version
+```
 
-Unlike vi, Nano does not use separate Normal and Insert modes for ordinary text entry.
+If `nano` is installed, you should see version information.
 
-You can open a file and immediately begin typing.
+You can also check its location:
 
-4. Creating a File for nano
+```bash
+which nano
+```
 
-Create a basic text file using echo:
+Example:
 
-echo "Hello, World!" > example.txt
+```text
+/usr/bin/nano
+```
 
-Verify the file:
+> **Note:** The exact version and path may differ between Linux distributions.
 
-cat example.txt
+---
 
-Expected output:
+# 4. Opening a File with nano
 
-Hello, World!
+Create and open a file using:
 
-Check the file:
+```bash
+nano notes.txt
+```
 
-ls -l example.txt
-5. Opening a File with nano
+If the file does not exist, `nano` will create it when you save it.
 
-Open the file:
+You should now see the nano editor.
 
-nano example.txt
+At the bottom of the screen, nano displays keyboard shortcuts.
 
-The file will open inside the Nano editor.
+For example:
 
-You can now edit the contents directly.
+```text
+^X
+```
 
-Add the following lines:
+means:
 
-Hello, World!
-This is a Linux text editor lab.
-I am learning how to edit files using nano.
-6. Saving a File in nano
+```text
+Ctrl + X
+```
+
+The `^` symbol represents the **Ctrl** key.
+
+---
+
+# 5. Entering Text
+
+Inside nano, type:
+
+```text
+Linux administration is an important cybersecurity skill.
+```
+
+Add another line:
+
+```text
+This lab focuses on working with text editors.
+```
+
+Your file should contain something similar to:
+
+```text
+Linux administration is an important cybersecurity skill.
+This lab focuses on working with text editors.
+```
+
+---
+
+# 6. Saving a File in nano
 
 To save the file, press:
 
+```text
 Ctrl + O
+```
 
-Nano will display a prompt asking for the filename.
+Nano will ask for the filename.
+
+You should see something similar to:
+
+```text
+File Name to Write: notes.txt
+```
 
 Press:
 
+```text
 Enter
+```
 
-to confirm the filename.
+The file will be saved.
 
-The file is now saved.
+---
 
-7. Exiting nano
+# 7. Exiting nano
 
-To exit Nano:
+To exit nano, press:
 
+```text
 Ctrl + X
+```
 
 You should return to the terminal.
 
-Verify the contents:
+Verify that the file exists:
 
-cat example.txt
-8. Important nano Shortcuts
-Shortcut	Function
-Ctrl + O	Save/write the file
-Ctrl + X	Exit Nano
-Ctrl + W	Search for text
-Ctrl + K	Cut the current line
-Ctrl + U	Paste previously cut text
-Ctrl + G	Display help
-Understanding the ^ Symbol
+```bash
+ls -l
+```
 
-Nano often displays shortcuts like:
+You should see:
 
-^O Write Out
-^X Exit
+```text
+notes.txt
+```
 
-The ^ symbol represents the Ctrl key.
+---
 
-Therefore:
-
-^O
-
-means:
-
-Ctrl + O
-
-and:
-
-^X
-
-means:
-
-Ctrl + X
-9. Practical nano Exercise
-
-Create another file:
-
-echo "Linux Administration" > nano-practice.txt
-
-Open it:
-
-nano nano-practice.txt
-
-Add the following content:
-
-Linux text editors are important for system administration.
-Nano provides a simple interface for editing text files.
-Terminal editors are useful when working with remote servers.
-Linux administrators frequently work with configuration files.
-
-Save the file:
-
-Ctrl + O
-
-Press:
-
-Enter
-
-Exit Nano:
-
-Ctrl + X
-
-Verify the file:
-
-cat nano-practice.txt
-10. Understanding vi
-
-vi is a powerful text editor that is commonly available on Linux and Unix systems.
-
-Unlike Nano, vi uses a modal editing system.
-
-This means that the same keyboard keys can perform different actions depending on the current mode.
-
-This is one of the most important concepts to understand when learning vi.
-
-11. Opening a File with vi
-
-Open the example file:
-
-vi example.txt
-
-The file will open inside vi.
-
-At first, you will be in Normal Mode.
-
-12. Understanding vi Modes
-
-The three important concepts for beginners are:
-
-Normal Mode
-
-Normal Mode is used for:
-
-Navigation
-Commands
-Deleting text
-Copying text
-Moving around the file
-Insert Mode
-
-Insert Mode is used for:
-
-Entering text
-Adding text
-Editing text
-Command-Line Mode
-
-Command-Line Mode is accessed using : from Normal Mode.
-
-It is used for commands such as:
-
-Saving
-Quitting
-Searching
-Other editor operations
-
-A simplified workflow is:
-
-Normal Mode
-     |
-     | i
-     v
-Insert Mode
-     |
-     | Esc
-     v
-Normal Mode
-     |
-     | :
-     v
-Command-Line Mode
-13. Entering Insert Mode
-
-With example.txt open in vi, press:
-
-i
-
-You are now in Insert Mode.
-
-Add the following lines:
-
-Editing files with vi is different from nano.
-vi uses different modes for editing and commands.
-Learning vi is useful for Linux administration.
-
-You can now type normally.
-
-14. Returning to Normal Mode
-
-After finishing your changes, press:
-
-Esc
-
-You are now back in Normal Mode.
-
-Remember:
-
-i
-
-means:
-
-Enter Insert Mode.
-
-And:
-
-Esc
-
-means:
-
-Return to Normal Mode.
-
-If you are ever unsure which mode you are in, pressing Esc is a useful way to return to Normal Mode.
-
-15. Saving and Exiting vi
-
-From Normal Mode, type:
-
-:wq
-
-Then press:
-
-Enter
-
-The command consists of:
-
-w = write/save
-q = quit
-
-Therefore:
-
-:wq
-
-means:
-
-Save the file and exit vi.
-
-Verify your changes:
-
-cat example.txt
-16. Important vi Commands
-Command	Function
-i	Enter Insert Mode
-Esc	Return to Normal Mode
-:w	Save the file
-:q	Quit
-:wq	Save and quit
-:q!	Quit without saving
-dd	Delete the current line
-yy	Copy the current line
-p	Paste
-/text	Search for text
-17. Practical vi Exercise
-
-Create a practice file:
-
-echo "Linux Security" > vi-practice.txt
-
-Open it:
-
-vi vi-practice.txt
-
-Press:
-
-i
-
-Add:
-
-Linux security requires strong system administration skills.
-Text editors are commonly used to manage configuration files.
-vi provides powerful keyboard-based editing capabilities.
-Linux administrators should understand terminal-based editors.
-
-Press:
-
-Esc
-
-Save and exit:
-
-:wq
-
-Press:
-
-Enter
-
-Verify the file:
-
-cat vi-practice.txt
-18. Understanding :q!
-
-Another important vi command is:
-
-:q!
-
-This means:
-
-Quit without saving changes.
-
-For example:
-
-Esc
-:q!
-Enter
-
-This will exit the editor and discard any unsaved changes.
-
-⚠️ Warning: Use :q! only when you intentionally want to discard your changes.
-
-19. Testing :q!
-
-Create a test file:
-
-echo "Original text" > discard-test.txt
-
-Open it:
-
-vi discard-test.txt
-
-Press:
-
-i
-
-Change the text.
-
-For example, add:
-
-This change should not be saved.
-
-Press:
-
-Esc
-
-Then use:
-
-:q!
-
-Press:
-
-Enter
-
-Check the file:
-
-cat discard-test.txt
-
-The unsaved changes should not be present.
-
-20. nano vs vi
-Feature	nano	vi
-Beginner friendly	Very	Requires practice
-Modal editing	No	Yes
-Basic editing	Easy	More complex
-Keyboard commands	Simple	Extensive
-Linux server usage	Common	Very common
-Learning curve	Low	Higher
-Advanced editing	Limited	Powerful
-
-Neither editor is universally better.
-
-Nano is usually easier for beginners and quick edits.
-
-vi has a steeper learning curve but provides a powerful keyboard-driven editing workflow.
-
-21. Real-World Linux Administration Scenario
-
-Imagine you connect to a remote Linux server using SSH.
-
-The server has no graphical desktop environment.
-
-You need to modify a configuration file.
-
-A typical workflow could look like this:
-
-SSH
- |
- v
-Linux Terminal
- |
- v
-Text Editor
- |
- v
-Configuration File
- |
- v
-Save Changes
- |
- v
-Test Configuration
- |
- v
-Restart/Reload Service
-
-Terminal text editors are therefore important for:
-
-Linux administration
-Cybersecurity
-DevOps
-Cloud engineering
-Server management
-System administration
-22. Configuration Files and Text Editors
-
-Linux stores many system settings in text-based configuration files.
-
-Examples include configuration related to:
-
-Users
-Networking
-Services
-SSH
-Logging
-Security
-Applications
-System startup
-
-Administrators may need to inspect or modify these files.
-
-However, configuration files should not be changed randomly.
-
-Always understand what a file does before modifying it.
-
-23. Security Perspective
-
-Text editors are not security tools themselves, but they are frequently used when managing security-related configuration.
-
-Examples include:
-
-SSH configuration
-Firewall configuration
-User configuration
-Service configuration
-Logging configuration
-Network configuration
-Access-control settings
-System-hardening configuration
-
-Before modifying an important configuration file:
-
-Understand what the file controls.
-Make a backup when appropriate.
-Modify only what is necessary.
-Check the configuration syntax when applicable.
-Test the changes.
-Keep track of what was changed.
-
-For example:
-
-cp configuration.conf configuration.conf.backup
-
-This creates a backup before modification.
-
-Important: Only modify system configuration files when you have the appropriate permissions and understand the possible consequences.
-
-24. Common Mistakes
-Mistake 1 — Trying to type in vi while in Normal Mode
-
-If you cannot enter text normally, you may still be in Normal Mode.
-
-Press:
-
-i
-
-to enter Insert Mode.
-
-Mistake 2 — Forgetting Esc
-
-Before entering commands such as:
-
-:wq
-
-press:
-
-Esc
-
-to return to Normal Mode.
-
-Mistake 3 — Forgetting to press Enter
-
-After entering:
-
-:wq
-
-you must press:
-
-Enter
-
-to execute the command.
-
-Mistake 4 — Accidentally discarding changes
-
-The command:
-
-:q!
-
-exits without saving changes.
-
-Use it carefully.
-
-Mistake 5 — Editing important system files without understanding them
-
-Do not experiment randomly with critical Linux configuration files.
-
-Use your practice directory:
-
-~/linux-lab-04
-
-for learning and experimentation.
-
-25. Verification
-
-List the files created during this lab:
-
-ls -lh ~/linux-lab-04
-
-You should have files similar to:
-
-example.txt
-nano-practice.txt
-vi-practice.txt
-discard-test.txt
-
-Display the contents:
-
-cat ~/linux-lab-04/example.txt
-cat ~/linux-lab-04/nano-practice.txt
-cat ~/linux-lab-04/vi-practice.txt
-cat ~/linux-lab-04/discard-test.txt
-
-Check the number of lines:
-
-wc -l ~/linux-lab-04/example.txt
-wc -l ~/linux-lab-04/nano-practice.txt
-wc -l ~/linux-lab-04/vi-practice.txt
-wc -l ~/linux-lab-04/discard-test.txt
-26. Useful File Inspection Commands
-
-After editing files, you can use several commands to inspect them.
-
-Display the complete file:
-
-cat example.txt
-
-Display the file with line numbers:
-
-cat -n example.txt
-
-Display the first lines:
-
-head example.txt
-
-Display the last lines:
-
-tail example.txt
-
-Count lines, words, and characters:
-
-wc example.txt
-
-These commands will become increasingly useful in later labs.
-
-27. Practical Challenge
-
-Create a file called:
-
-linux-editor-challenge.txt
-
-Start by creating it:
-
-echo "Linux Editor Challenge" > linux-editor-challenge.txt
-
-Open it using Nano:
-
-nano linux-editor-challenge.txt
-
-Add information about:
-
-Your Linux learning goals
-Why Linux administrators need text editors
-One advantage of Nano
-One advantage of vi
-
-Save and exit Nano.
-
-Then reopen the same file using:
-
-vi linux-editor-challenge.txt
-
-Enter Insert Mode:
-
-i
-
-Add one more line.
-
-Press:
-
-Esc
-
-Save and exit:
-
-:wq
-
-Press:
-
-Enter
-
-Finally verify the file:
-
-cat linux-editor-challenge.txt
-28. Knowledge Check
-
-Answer the following questions after completing the lab.
-
-Q1. What is the purpose of a text editor in Linux?
-Q2. Why is Nano considered beginner-friendly?
-Q3. What does the i command do in vi?
-Q4. How do you return from Insert Mode to Normal Mode?
-Q5. What does :w do?
-Q6. What does :wq do?
-Q7. What does :q! do?
-Q8. What is the main difference between Nano and vi?
-Q9. Why are terminal-based text editors important on Linux servers?
-Q10. Why should you avoid experimenting directly with important system configuration files?
-29. Key Concepts
-Text Editor
-
-A program used to create and modify plain-text files.
-
-Nano
-
-A simple terminal-based editor suitable for beginners and quick edits.
-
-vi
-
-A powerful modal text editor commonly available on Linux and Unix systems.
-
-Normal Mode
-
-The default vi mode used for navigation and commands.
-
-Insert Mode
-
-The vi mode used for entering and editing text.
-
-Command-Line Mode
-
-The vi mode used to execute commands such as saving and quitting.
-
-:wq
-
-Save and quit.
-
-:q!
-
-Quit without saving.
-
-🔎 Command Reference
-Command / Shortcut	Purpose
-nano file.txt	Open a file with Nano
-Ctrl + O	Save in Nano
-Ctrl + X	Exit Nano
-Ctrl + W	Search in Nano
-Ctrl + K	Cut a line in Nano
-Ctrl + U	Paste in Nano
-vi file.txt	Open a file with vi
-i	Enter Insert Mode
-Esc	Return to Normal Mode
-:w	Save
-:q	Quit
-:wq	Save and quit
-:q!	Quit without saving
-dd	Delete current line
-yy	Copy current line
-p	Paste
-/text	Search for text
-🛡️ Best Practices
-
-When working with text editors on Linux:
-
-1. Practice in a dedicated directory
+# 8. Viewing the File
 
 Use:
 
-~/linux-lab-04
+```bash
+cat notes.txt
+```
 
-for experimentation.
+Expected output:
 
-2. Understand the file before editing it
+```text
+Linux administration is an important cybersecurity skill.
+This lab focuses on working with text editors.
+```
 
-Do not modify configuration files blindly.
+This confirms that the text was successfully saved.
 
-3. Back up important configuration files
+---
 
-When appropriate:
+# 9. Editing an Existing File
 
-cp file.conf file.conf.backup
-4. Verify your changes
+Open the file again:
 
-After editing:
+```bash
+nano notes.txt
+```
 
-cat file.txt
+Add another line:
 
-or use other appropriate inspection commands.
+```text
+Linux text editors are useful for configuration management.
+```
 
-5. Be careful with destructive operations
+Save the file:
 
-Commands such as:
-
-:q!
-
-can discard changes.
-
-Understand a command before executing it.
-
-✅ Lab Completion Checklist
- I understand what Linux text editors are used for.
- I can open a file using nano.
- I can edit a file using nano.
- I can save a file using Ctrl + O.
- I can exit nano using Ctrl + X.
- I understand the basic modes of vi.
- I can enter Insert Mode using i.
- I can return to Normal Mode using Esc.
- I can save using :w.
- I can save and exit using :wq.
- I understand what :q! does.
- I can perform basic editing with vi.
- I completed the Nano exercise.
- I completed the vi exercise.
- I completed the practical challenge.
- I verified my files.
- I understand why terminal text editors are important for Linux administration.
-🧠 Final Takeaways
-
-The most important commands from this lab are:
-
-nano file.txt
+```text
 Ctrl + O
-Ctrl + X
-vi file.txt
-i
-Esc
-:w
-:wq
-:q!
+```
 
-Remember the basic vi workflow:
+Press:
 
-Open file
-   ↓
-Normal Mode
-   ↓
-i
-   ↓
-Insert Mode
-   ↓
-Edit text
-   ↓
-Esc
-   ↓
-Normal Mode
-   ↓
-:wq
-   ↓
+```text
 Enter
-   ↓
-Exit
-Conclusion
+```
 
-In this lab, you learned how to work with two important Linux text editors: nano and vi.
+Exit:
 
-You learned how to:
+```text
+Ctrl + X
+```
 
-Create text files
-Open files
-Edit files
-Save files
-Exit text editors
-Use Nano shortcuts
-Understand vi modes
-Enter Insert Mode
-Return to Normal Mode
-Save and exit using :wq
-Exit without saving using :q!
-Verify edited files
-Apply safe text-editing practices
+Verify:
 
-Text-editor skills are a fundamental part of Linux administration and will become increasingly important as you work with shell scripting, system configuration, networking, automation, and cybersecurity.
+```bash
+cat notes.txt
+```
+
+---
+
+# 10. Understanding the nano Interface
+
+Nano provides a simple terminal-based interface.
+
+The bottom section displays commonly used shortcuts.
+
+Examples:
+
+| Shortcut | Function |
+|---|---|
+| `Ctrl + O` | Write/save file |
+| `Ctrl + X` | Exit nano |
+| `Ctrl + W` | Search |
+| `Ctrl + K` | Cut current line |
+| `Ctrl + U` | Paste previously cut text |
+| `Ctrl + G` | Display help |
+| `Ctrl + C` | Display cursor position |
+
+The exact interface may vary slightly depending on your nano version.
+
+---
+
+# 11. Moving Around the File
+
+You can use the keyboard arrow keys to move around the file.
+
+Common navigation keys include:
+
+```text
+↑
+↓
+←
+→
+```
+
+You can also use:
+
+```text
+Home
+End
+Page Up
+Page Down
+```
+
+These allow you to move around larger files more efficiently.
+
+---
+
+# 12. Searching Inside a File
+
+Open the file:
+
+```bash
+nano notes.txt
+```
+
+Press:
+
+```text
+Ctrl + W
+```
+
+Nano will display a search prompt.
+
+Enter:
+
+```text
+cybersecurity
+```
+
+Then press:
+
+```text
+Enter
+```
+
+Nano will search for the term.
+
+This becomes especially useful when working with large configuration files.
+
+---
+
+# 13. Creating a Configuration-Style File
+
+Create a practice configuration file:
+
+```bash
+nano server.conf
+```
+
+Enter:
+
+```text
+SERVER_NAME=linux-lab
+ENVIRONMENT=development
+LOG_LEVEL=info
+SERVICE_STATUS=enabled
+```
+
+Save:
+
+```text
+Ctrl + O
+```
+
+Press:
+
+```text
+Enter
+```
+
+Exit:
+
+```text
+Ctrl + X
+```
+
+Verify:
+
+```bash
+cat server.conf
+```
+
+Expected:
+
+```text
+SERVER_NAME=linux-lab
+ENVIRONMENT=development
+LOG_LEVEL=info
+SERVICE_STATUS=enabled
+```
+
+---
+
+# 14. Understanding Configuration Files
+
+Linux administrators frequently modify configuration files.
+
+Examples include files associated with:
+
+```text
+/etc
+```
+
+Many Linux services rely on configuration files to determine how they should operate.
+
+Examples of configuration tasks include:
+
+- Setting service options
+- Configuring network services
+- Defining application behavior
+- Configuring logging
+- Managing authentication settings
+
+> ⚠️ **Security note:** System configuration files can affect the operation and security of the entire machine. Always make backups and understand a change before applying it to a production system.
+
+---
+
+# 15. Editing Configuration-Style Data
+
+Open the practice file:
+
+```bash
+nano server.conf
+```
+
+Change:
+
+```text
+LOG_LEVEL=info
+```
+
+to:
+
+```text
+LOG_LEVEL=debug
+```
+
+Save:
+
+```text
+Ctrl + O
+```
+
+Press:
+
+```text
+Enter
+```
+
+Exit:
+
+```text
+Ctrl + X
+```
+
+Verify:
+
+```bash
+cat server.conf
+```
+
+---
+
+# 16. Creating a Security Notes File
+
+Create:
+
+```bash
+nano security-notes.txt
+```
+
+Enter:
+
+```text
+Linux Security Notes
+
+1. Keep systems updated.
+2. Use strong access controls.
+3. Review system logs.
+4. Apply least privilege.
+5. Protect sensitive configuration files.
+```
+
+Save:
+
+```text
+Ctrl + O
+```
+
+Press:
+
+```text
+Enter
+```
+
+Exit:
+
+```text
+Ctrl + X
+```
+
+Verify:
+
+```bash
+cat security-notes.txt
+```
+
+---
+
+# 17. Appending Information Without Opening nano
+
+Sometimes you do not need a text editor.
+
+For example:
+
+```bash
+echo "Review file permissions regularly." >> security-notes.txt
+```
+
+Display the file:
+
+```bash
+cat security-notes.txt
+```
+
+This demonstrates an important Linux principle:
+
+> Choose the simplest tool appropriate for the task.
+
+For one-line additions, `echo` and redirection may be faster than opening an editor.
+
+---
+
+# 18. Understanding File Redirection
+
+The following command:
+
+```bash
+echo "New line" > file.txt
+```
+
+creates or **overwrites** the file.
+
+The following command:
+
+```bash
+echo "New line" >> file.txt
+```
+
+adds content to the end of the file.
+
+The difference is important:
+
+```text
+>   = overwrite
+>>  = append
+```
+
+For example:
+
+```bash
+echo "First line" > example.txt
+```
+
+Then:
+
+```bash
+echo "Second line" >> example.txt
+```
+
+View the result:
+
+```bash
+cat example.txt
+```
+
+Expected:
+
+```text
+First line
+Second line
+```
+
+---
+
+# 19. Comparing nano and Command-Line Redirection
+
+There are multiple ways to create and modify text files.
+
+### Using nano
+
+```bash
+nano file.txt
+```
+
+Useful when:
+
+- Editing multiple lines
+- Manually changing configuration
+- Working interactively
+
+### Using echo
+
+```bash
+echo "text" > file.txt
+```
+
+Useful when:
+
+- Creating a simple file
+- Adding a single line
+- Automating file creation
+
+### Using cat with a here-document
+
+For larger blocks of text:
+
+```bash
+cat > example.txt <<'EOF'
+Line one
+Line two
+Line three
+EOF
+```
+
+This is particularly useful when creating files through scripts or automated lab setup.
+
+---
+
+# 20. Creating a Multi-Line File Automatically
+
+Create a practice file without opening an editor:
+
+```bash
+cat > automation-notes.txt <<'EOF'
+Linux Automation Notes
+
+Automation can reduce repetitive administrative work.
+
+Common automation tools include:
+- Shell scripts
+- Ansible
+- Python
+- Cron
+EOF
+```
+
+View the file:
+
+```bash
+cat automation-notes.txt
+```
+
+This technique will become useful when working with automation labs later in the course.
+
+---
+
+# 21. Viewing Line Numbers
+
+Use:
+
+```bash
+nl notes.txt
+```
+
+Example:
+
+```text
+     1  Linux administration is an important cybersecurity skill.
+     2  This lab focuses on working with text editors.
+     3  Linux text editors are useful for configuration management.
+```
+
+Line numbers are useful when troubleshooting configuration files and scripts.
+
+---
+
+# 22. Counting File Content
+
+Use:
+
+```bash
+wc notes.txt
+```
+
+This displays:
+
+- Number of lines
+- Number of words
+- Number of bytes
+
+For example:
+
+```text
+3 17 143 notes.txt
+```
+
+You can also request specific information.
+
+Count lines:
+
+```bash
+wc -l notes.txt
+```
+
+Count words:
+
+```bash
+wc -w notes.txt
+```
+
+Count bytes:
+
+```bash
+wc -c notes.txt
+```
+
+---
+
+# 23. Searching Files from the Terminal
+
+You can search for text without opening an editor.
+
+For example:
+
+```bash
+grep "Linux" notes.txt
+```
+
+This displays lines containing:
+
+```text
+Linux
+```
+
+You can search for a configuration setting:
+
+```bash
+grep "LOG_LEVEL" server.conf
+```
+
+Expected:
+
+```text
+LOG_LEVEL=debug
+```
+
+This is extremely useful when working with configuration files.
+
+---
+
+# 24. Practical Challenge
+
+Create a file called:
+
+```text
+admin-notes.txt
+```
+
+Use nano:
+
+```bash
+nano admin-notes.txt
+```
+
+Enter the following information:
+
+```text
+Linux Administration Practice
+
+Filesystem:
+Users:
+Permissions:
+Networking:
+Processes:
+Logs:
+Security:
+```
+
+Save and exit.
+
+Verify:
+
+```bash
+cat admin-notes.txt
+```
+
+---
+
+# 25. Practical Challenge — Modify the File
+
+Open:
+
+```bash
+nano admin-notes.txt
+```
+
+Add information after each category.
+
+For example:
+
+```text
+Filesystem: Understand directories and storage.
+Users: Manage accounts and groups.
+Permissions: Control access to files.
+Networking: Understand IP addresses and ports.
+Processes: Monitor running programs.
+Logs: Investigate system activity.
+Security: Apply least privilege.
+```
+
+Save and exit.
+
+Verify:
+
+```bash
+cat admin-notes.txt
+```
+
+---
+
+# 26. Practical Challenge — Search the File
+
+Search for:
+
+```bash
+grep "Security" admin-notes.txt
+```
+
+Then search for:
+
+```bash
+grep "Networking" admin-notes.txt
+```
+
+Then display line numbers:
+
+```bash
+grep -n "Security" admin-notes.txt
+```
+
+The `-n` option displays the matching line number.
+
+---
+
+# 27. Practical Challenge — Create a Configuration File
+
+Create:
+
+```bash
+nano application.conf
+```
+
+Enter:
+
+```text
+APP_NAME=SecurityLab
+APP_ENV=development
+LOG_LEVEL=info
+PORT=8080
+DEBUG=false
+```
+
+Save and exit.
+
+Verify:
+
+```bash
+cat application.conf
+```
+
+Search for the logging configuration:
+
+```bash
+grep "LOG_LEVEL" application.conf
+```
+
+Search for the port:
+
+```bash
+grep "PORT" application.conf
+```
+
+---
+
+# 28. Security Perspective
+
+Text editors are an important part of cybersecurity and Linux administration.
+
+Security professionals frequently inspect and modify:
+
+- Configuration files
+- Firewall settings
+- Service configurations
+- Authentication settings
+- Scripts
+- Log-processing configurations
+- Monitoring configurations
+
+However, configuration changes should always be performed carefully.
+
+Before changing an important file:
+
+1. Know what the file does.
+2. Make a backup when appropriate.
+3. Change only what is necessary.
+4. Verify the result.
+5. Test the affected service.
+
+---
+
+# 29. Backing Up a Configuration File
+
+Before modifying an important configuration file, a simple backup can be created with:
+
+```bash
+cp application.conf application.conf.bak
+```
+
+Verify:
+
+```bash
+ls -l application.conf*
+```
+
+You should see:
+
+```text
+application.conf
+application.conf.bak
+```
+
+This provides a basic recovery copy.
+
+---
+
+# 30. Restoring a Backup
+
+If necessary, the backup can be restored:
+
+```bash
+cp application.conf.bak application.conf
+```
+
+Verify:
+
+```bash
+cat application.conf
+```
+
+> **Note:** Always verify that the backup is actually the version you intend to restore before overwriting a configuration file.
+
+---
+
+# 31. Common Mistakes
+
+## Mistake 1 — Forgetting to Save
+
+If you edit a file in nano and exit without saving, your changes may not be written.
+
+Use:
+
+```text
+Ctrl + O
+```
+
+before exiting.
+
+---
+
+## Mistake 2 — Accidentally Overwriting a File
+
+This command:
+
+```bash
+echo "text" > file.txt
+```
+
+overwrites the existing contents.
+
+Use:
+
+```bash
+echo "text" >> file.txt
+```
+
+when you intend to append.
+
+---
+
+## Mistake 3 — Editing the Wrong File
+
+Always verify your current directory:
+
+```bash
+pwd
+```
+
+and inspect the file:
+
+```bash
+ls -l filename
+```
+
+before making important changes.
+
+---
+
+## Mistake 4 — Modifying System Configuration Without Understanding It
+
+Avoid experimenting directly with files under:
+
+```text
+/etc
+```
+
+until you understand their purpose.
+
+Use the lab directory for practice.
+
+---
+
+# 32. Useful Text-Editing Commands
+
+Open a file with nano:
+
+```bash
+nano filename
+```
+
+Display a file:
+
+```bash
+cat filename
+```
+
+Display line numbers:
+
+```bash
+nl filename
+```
+
+Search for text:
+
+```bash
+grep "text" filename
+```
+
+Count lines:
+
+```bash
+wc -l filename
+```
+
+Count words:
+
+```bash
+wc -w filename
+```
+
+Create or overwrite a file:
+
+```bash
+echo "text" > filename
+```
+
+Append to a file:
+
+```bash
+echo "text" >> filename
+```
+
+Create a multi-line file:
+
+```bash
+cat > filename <<'EOF'
+Line one
+Line two
+Line three
+EOF
+```
+
+Create a backup:
+
+```bash
+cp filename filename.bak
+```
+
+---
+
+# 33. Verification
+
+Move into your lab directory:
+
+```bash
+cd ~/linux-lab-04
+```
+
+List all files:
+
+```bash
+ls -lah
+```
+
+Display the main practice files:
+
+```bash
+cat notes.txt
+cat server.conf
+cat security-notes.txt
+cat automation-notes.txt
+cat admin-notes.txt
+cat application.conf
+```
+
+Check line numbers:
+
+```bash
+nl notes.txt
+```
+
+Search for configuration values:
+
+```bash
+grep "LOG_LEVEL" server.conf
+```
+
+Check file statistics:
+
+```bash
+wc notes.txt
+```
+
+---
+
+# 34. Knowledge Check
+
+### Q1. What is a text editor?
+
+### Q2. Why are text editors important in Linux administration?
+
+### Q3. What does `nano filename` do?
+
+### Q4. What keyboard shortcut saves a file in nano?
+
+### Q5. What keyboard shortcut exits nano?
+
+### Q6. What does `Ctrl + W` do in nano?
+
+### Q7. What is the difference between `>` and `>>`?
+
+### Q8. What does `grep` do?
+
+### Q9. What does `nl` do?
+
+### Q10. What does `wc -l` display?
+
+### Q11. Why should important configuration files be backed up before modification?
+
+### Q12. Why should you avoid modifying system configuration files without understanding their purpose?
+
+---
+
+# 35. Key Concepts
+
+### Text Editor
+
+A program used to create and modify text files.
+
+### nano
+
+A beginner-friendly terminal-based text editor.
+
+### Configuration File
+
+A file containing settings used by a system, service, or application.
+
+### Redirection
+
+A shell mechanism used to send command output to files.
+
+```text
+>   = overwrite
+>>  = append
+```
+
+### grep
+
+A command used to search for matching text.
+
+### Backup
+
+A copy of a file that can be used for recovery.
+
+---
+
+# 36. Command Reference
+
+| Command | Purpose |
+|---|---|
+| `nano file` | Open a file in nano |
+| `cat file` | Display file contents |
+| `nl file` | Display file with line numbers |
+| `grep "text" file` | Search for text |
+| `grep -n "text" file` | Search and display line numbers |
+| `wc file` | Display lines, words, and bytes |
+| `wc -l file` | Count lines |
+| `wc -w file` | Count words |
+| `echo "text" > file` | Create/overwrite a file |
+| `echo "text" >> file` | Append to a file |
+| `cp file file.bak` | Create a backup |
+| `cat > file <<'EOF'` | Create a multi-line file |
+
+---
+
+# 37. Important nano Shortcuts
+
+| Shortcut | Function |
+|---|---|
+| `Ctrl + O` | Save/write file |
+| `Ctrl + X` | Exit |
+| `Ctrl + W` | Search |
+| `Ctrl + K` | Cut line |
+| `Ctrl + U` | Paste cut text |
+| `Ctrl + G` | Help |
+| `Ctrl + C` | Show cursor position |
+
+> **Tip:** Nano displays many of these shortcuts at the bottom of the screen, so you do not need to memorize all of them immediately.
+
+---
+
+# 38. Completion Checklist
+
+Before considering this lab complete, make sure you can:
+
+- [ ] Explain what a text editor is
+- [ ] Explain why Linux administrators use text editors
+- [ ] Open a file with `nano`
+- [ ] Create a new text file
+- [ ] Enter text into a file
+- [ ] Save a file in nano
+- [ ] Exit nano
+- [ ] Edit an existing file
+- [ ] Search within nano
+- [ ] Use `cat`
+- [ ] Use `grep`
+- [ ] Use `nl`
+- [ ] Use `wc`
+- [ ] Explain `>`
+- [ ] Explain `>>`
+- [ ] Create multi-line files using a here-document
+- [ ] Create configuration-style files
+- [ ] Back up a configuration file
+- [ ] Explain why configuration files must be handled carefully
+
+---
+
+# 39. Final Takeaways
+
+Text editors are fundamental Linux administration tools.
+
+The basic nano workflow is:
+
+```bash
+nano filename
+```
+
+Then:
+
+```text
+Ctrl + O
+Enter
+Ctrl + X
+```
+
+The most useful command-line text operations include:
+
+```bash
+cat
+grep
+nl
+wc
+```
+
+File redirection is also important:
+
+```text
+>   = overwrite
+>>  = append
+```
+
+For larger automated file creation, here-documents can be useful:
+
+```bash
+cat > file.txt <<'EOF'
+Line one
+Line two
+EOF
+```
+
+Understanding these techniques will make later Linux administration and cybersecurity labs much easier.
+
+---
+
+# 40. Conclusion
+
+In this lab, you learned how to work with text editors and text files from the Linux command line.
+
+You practiced:
+
+- Opening files with nano
+- Creating and editing text files
+- Saving and exiting nano
+- Searching within files
+- Creating configuration-style files
+- Using `cat`
+- Using `grep`
+- Using `nl`
+- Using `wc`
+- Using output redirection
+- Creating multi-line files
+- Backing up files before modification
+- Applying safe configuration-management practices
+
+Text editing is a foundational Linux skill because administrators and security professionals frequently work with configuration files, scripts, logs, and system documentation.
+
+---
+
+# 🚀 Next Lab
+
+Continue to:
+
+**Lab 05 — File Permissions**
+
+In the next lab, you will learn how Linux controls access to files and directories using users, groups, permissions, and the `chmod` command.
